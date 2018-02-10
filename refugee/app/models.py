@@ -8,7 +8,7 @@ class NGO(models.Model):
     name = models.CharField(max_length=100)
     country = models.CharField(max_length=100, blank=True, null=True)
     international = models.BooleanField(default=False)
-    ngo_id = models.CHarField(max_length=50, blank=True, null=True)
+    ngo_id = models.CharField(max_length=50, blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -16,7 +16,7 @@ class NGO(models.Model):
 
 class Refugee(models.Model):
     refugee = models.OneToOneField(User, on_delete=models.CASCADE, related_name="refugee")
-    ngo = models.ForeignKey(NGO, blank=True, null=True, on_delete=models.SET_NULL, related_name="ngo")
+    ngo = models.ForeignKey(NGO, blank=True, null=True, on_delete=models.SET_NULL, related_name="refugees")
     country = models.CharField(max_length=50)
     photo = models.FileField(blank=True)
     bio = models.CharField(max_length=200, blank=True)
