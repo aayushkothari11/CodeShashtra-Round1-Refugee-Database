@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from .models import Refugee, NGO
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 
 
 def login(request):
@@ -50,11 +51,12 @@ def register(request):
         age = request.POST.get('age', '')
         mobileNo = request.POST.get('mobileNo', '')
         gender = request.POST.get('gender', '')
-        passport = request.POST.get('passport', '')
-
+        passport = request.FILES.get('passport', None)
+        photo = request.FILES.get('photo', None)
         refugee = Refugee.objects.create(refugee=user, country=country, bio=bio, age=age, mobileNo=mobileNo,
-                                         gender=gender, passport=passport)
+                                         gender=gender, passport=passport, photo=photo)
         refugee.save()
+        return HttpResponse("avh")
     else:
         return render(request, 'app/registration.html', {})
 
