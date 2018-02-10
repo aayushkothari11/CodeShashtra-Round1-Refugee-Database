@@ -113,5 +113,5 @@ def ngo_logout(request):
 
 @login_required(login_url='/login/')
 def profile(request, idx):
-   client = get_object_or_404(Refugee, pk=idx)
-   return render(request, 'app/refugee_profile.html', {'client': client})
+    client = get_object_or_404(Refugee, pk=idx)
+    return render(request, 'app/refugee_profile.html', {'client': client})
