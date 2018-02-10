@@ -13,4 +13,6 @@ urlpatterns = [
     url(r'^refugee_profile/(?P<idx>[0-9]+)/$', views.profile, name='profile'),
     url(r'^search/ngo/$', views.search_ngo, name='search_ngo'),
     url(r'^search/refugee/$', views.search_refugee, name='search_refugee'),
+    url(r'^add/notification/$', views.add_notif, name='add_notif'),
+    url(r'^all/notification/$', views.allnotifs, name='allnotifs'),
 ]

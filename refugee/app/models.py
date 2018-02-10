@@ -46,3 +46,11 @@ class Refugee(models.Model):
 
     def __str__(self):
         return str(self.refugee.username)
+
+
+class Notification(models.Model):
+    askedBy = models.ForeignKey(NGO, on_delete=models.CASCADE, related_name="notif_ngo")
+    message = models.CharField(max_length=300)
+
+    def __str__(self):
+        return str(self.message)

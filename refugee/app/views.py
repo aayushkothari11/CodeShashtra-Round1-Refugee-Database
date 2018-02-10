@@ -4,7 +4,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.urls import reverse
 from django.contrib.auth.models import User
-from .models import Refugee, NGO
+from .models import Refugee, NGO, Notification
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 
@@ -128,6 +128,7 @@ def search_ngo(request):
     return render(request, 'app/search_ngo.html', {})
 
 
+@login_required(login_url="app:ngo_login")
 def search_refugee(request):
     if request.GET.get('search_refugee'):
         param = request.GET.get('search_refugee')
@@ -136,3 +137,21 @@ def search_refugee(request):
             return render(request, 'app/search_refugee.html', {'error': 'NO MATCHING QUESTIONS FOUND'})
         return render(request, 'app/search_refugee.html', {'r': r})
     return render(request, 'app/search_refugee.html', {})
+
+
+@login_required(login_url="app:ngo_login")
+def add_notif(request):
+    if request.method == 'POST':
+        message = request.POST.get('message', '')
+        r = NGO.objects.get(user=request.user)
+        n = Notification(message=message, askedBy=r)
+        n.save()
+        return HttpResponse("avh")
+    else:
+        return render(request, 'app/addnotif.html', {})
+
+
+@login_required(login_url="app:ngo_login")
+def allnotifs(request):
+    notif = Notification.objects.all()
+    return render(request, 'app/allnotifs.html', {'notif': notif})
