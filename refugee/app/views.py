@@ -109,3 +109,9 @@ def ngo_login(request):
 def ngo_logout(request):
     auth_logout(request)
     return redirect(reverse('app:ngo_login'))
+
+
+@login_required(login_url='/login/')
+def profile(request, idx):
+   client = get_object_or_404(Refugee, pk=idx)
+   return render(request, 'app/refugee_profile.html', {'client': client})
