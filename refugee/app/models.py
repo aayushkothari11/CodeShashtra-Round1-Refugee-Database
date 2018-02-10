@@ -59,3 +59,7 @@ class NgoPetition(models.Model):
 class NgoPetitionVote(models.Model):
     petition = models.ForeignKey(NgoPetition, on_delete=models.CASCADE, related_name='ngo_petition_votes')
     voter = models.EmailField()
+    email_confirmed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.petition.title + " -- " + self.voter
