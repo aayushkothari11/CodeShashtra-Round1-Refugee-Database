@@ -8,3 +8,4 @@ class NGO(models.Model):
     country = models.CharField(max_length=100, blank=True, null=True)
     international = models.BooleanField(default=False)
     ngo_id = models.BigIntegerField(blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
