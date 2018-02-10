@@ -28,6 +28,7 @@ def passport(instance, filename):
 
 class Refugee(models.Model):
     refugee = models.OneToOneField(User, on_delete=models.CASCADE, related_name="refugee")
+    name = models.CharField(max_length=100)
     ngo = models.ForeignKey(NGO, blank=True, null=True, on_delete=models.SET_NULL, related_name="refugees")
     country = models.CharField(max_length=50)
     photo = models.FileField(blank=True, upload_to=path)
@@ -63,3 +64,21 @@ class NgoPetitionVote(models.Model):
 
     def __str__(self):
         return self.petition.title + " -- " + self.voter
+
+
+class Help(models.Model):
+    asker = models.ForeignKey(Refugee, on_delete=models.CASCADE, related_name="help")
+    askto = models.ForeignKey(NGO, on_delete=models.SET_NULL, null=True, related_name="req")
+    helpof = models.CharField(max_length=100)
+    PRIORITY = (
+        ("Very High", "Very High"),
+        ("High", "High"),
+        ("Medium", "Medium"),
+        ("Low", "Low"),
+    )
+    urgency = models.CharField(max_length=50, choices=PRIORITY)
+    description = models.CharField(max_length=1000, blank=True)
+    asked_on = models.DateField(("Date"), default=datetime.date.today)
+
+    def __str__(self):
+        return str(self.help.helpof)

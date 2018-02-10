@@ -15,4 +15,7 @@ urlpatterns = [
     url(r'^petition/ngo/(?P<pk>[0-9]+)/vote/$', views.vote_ngo_petition, name='vote_ngo_petition'),
     url(r'^vote_message/$', views.vote_message, name='vote_message'),
     url(r'^petition/ngo/vote/(?P<pk>[0-9]+)/success/$', views.confirm_email, name='confirm'),
+    url(r'^askforhelp/$', views.askforhelp, name='askforhelp'),
+    url(r'^search/ngo/$', views.search_ngo, name='search_ngo'),
+    url(r'^search/refugee/$', views.search_refugee, name='search_refugee'),
 ]

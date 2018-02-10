@@ -4,7 +4,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.urls import reverse
 from django.contrib.auth.models import User
-from .models import Refugee, NGO, NgoPetition, NgoPetitionVote
+from .models import Refugee, NGO, NgoPetition, NgoPetitionVote, Help
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.core.mail import send_mail
@@ -44,6 +44,7 @@ def register(request):
         FirstName = request.POST.get('fname', '')
         LastName = request.POST.get('lname', '')
         email = request.POST.get('email', '')
+        name = FirstName + " " + LastName
         user = User.objects.create_user(username=username, email=email, first_name=FirstName, last_name=LastName)
         user.set_password(password)
         user.save()
@@ -55,7 +56,7 @@ def register(request):
         passport = request.FILES.get('passport', None)
         photo = request.FILES.get('photo', None)
         refugee = Refugee.objects.create(refugee=user, country=country, bio=bio, age=age, mobileNo=mobileNo,
-                                         gender=gender, passport=passport, photo=photo)
+                                         gender=gender, passport=passport, photo=photo, name=name)
         refugee.save()
         return HttpResponse("avh")
     else:
@@ -118,6 +119,31 @@ def profile(request, idx):
     return render(request, 'app/refugee_profile.html', {'client': client})
 
 
+def askforhelp(request):
+    if request.method == 'POST':
+        name = request.user.get_username()
+        idd = request.user.id
+        ngo_name = request.POST.get("askto", "")
+        print(ngo_name)
+        helpof = request.POST.get("helpof", "")
+        urgency = request.POST.get("urgency", "")
+        description = request.POST.get("description", "")
+        myhelp = Help()
+        current_refugee = Refugee.objects.get(refugee__username=name)
+        myhelp.asker = current_refugee
+        myhelp.askto = NGO.objects.get(name=ngo_name)
+        myhelp.helpof = helpof
+        myhelp.urgency = urgency
+        myhelp.description = description
+        return redirect('app:profile', idx=idd)
+    else:
+        name = request.user.get_username()
+        current_refugee = Refugee.objects.get(refugee__username=name)
+        name = request.user.get_username()
+        country = current_refugee.country
+        return render(request, 'app/askforhelp.html', {'all_ngo': NGO.objects.filter(country=country)})
+
+
 def view_ngo_petition(request, pk):
     petition = get_object_or_404(NgoPetition)
     return render(request, 'app/petition.html', {'petition': petition})
@@ -152,3 +178,23 @@ def confirm_email(request, pk):
     vote.email_confirmed = True
     vote.save()
     return HttpResponse('Your vote has been confirmed.')
+
+
+def search_ngo(request):
+    if request.GET.get('search_ngo'):
+        param = request.GET.get('search_ngo')
+        ngo = NGO.objects.filter(name__icontains=param)
+        if not ngo.exists():
+            return render(request, 'app/search_ngo.html', {'error': 'NO MATCHING QUESTIONS FOUND'})
+        return render(request, 'app/search_ngo.html', {'ngo': ngo})
+    return render(request, 'app/search_ngo.html', {})
+
+
+def search_refugee(request):
+    if request.GET.get('search_refugee'):
+        param = request.GET.get('search_refugee')
+        r = Refugee.objects.filter(name__icontains=param)
+        if not r.exists():
+            return render(request, 'app/search_refugee.html', {'error': 'NO MATCHING QUESTIONS FOUND'})
+        return render(request, 'app/search_refugee.html', {'r': r})
+    return render(request, 'app/search_refugee.html', {})
