@@ -4,7 +4,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.urls import reverse
 from django.contrib.auth.models import User
-from .models import Refugee, NGO
+from .models import Refugee, NGO, Help
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 
@@ -115,3 +115,27 @@ def ngo_logout(request):
 def profile(request, idx):
    client = get_object_or_404(Refugee, pk=idx)
    return render(request, 'app/refugee_profile.html', {'client': client})
+
+def askforhelp(request):
+    if request.method == 'POST':
+        name = request.user.get_username()
+        idd = request.user.id
+        ngo_name = request.POST.get("askto","")
+        print(ngo_name)
+        helpof = request.POST.get("helpof","")
+        urgency = request.POST.get("urgency","")
+        description = request.POST.get("description","")
+        myhelp = Help()
+        current_refugee = Refugee.objects.get(refugee__username = name)
+        myhelp.asker = current_refugee
+        myhelp.askto = NGO.objects.get(name=ngo_name)
+        myhelp.helpof = helpof
+        myhelp.urgency = urgency
+        myhelp.description = description
+        return redirect('app:profile', idx=idd)
+    else:
+        name = request.user.get_username()
+        current_refugee = Refugee.objects.get(refugee__username = name)
+        name = request.user.get_username()
+        country = current_refugee.country
+        return render(request, 'app/askforhelp.html', {'all_ngo' : NGO.objects.filter(country = country)})
