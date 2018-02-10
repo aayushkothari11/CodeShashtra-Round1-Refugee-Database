@@ -4,9 +4,10 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.urls import reverse
 from django.contrib.auth.models import User
-from .models import Refugee, NGO, Notification
+from .models import Refugee, NGO, NgoPetition, NgoPetitionVote, Help, Notification
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.core.mail import send_mail
 
 
 def login(request):
@@ -116,6 +117,67 @@ def ngo_logout(request):
 def profile(request, idx):
     client = get_object_or_404(Refugee, pk=idx)
     return render(request, 'app/refugee_profile.html', {'client': client})
+
+
+def askforhelp(request):
+    if request.method == 'POST':
+        name = request.user.get_username()
+        idd = request.user.id
+        ngo_name = request.POST.get("askto", "")
+        print(ngo_name)
+        helpof = request.POST.get("helpof", "")
+        urgency = request.POST.get("urgency", "")
+        description = request.POST.get("description", "")
+        myhelp = Help()
+        current_refugee = Refugee.objects.get(refugee__username=name)
+        myhelp.asker = current_refugee
+        myhelp.askto = NGO.objects.get(name=ngo_name)
+        myhelp.helpof = helpof
+        myhelp.urgency = urgency
+        myhelp.description = description
+        return redirect('app:profile', idx=idd)
+    else:
+        name = request.user.get_username()
+        current_refugee = Refugee.objects.get(refugee__username=name)
+        name = request.user.get_username()
+        country = current_refugee.country
+        return render(request, 'app/askforhelp.html', {'all_ngo': NGO.objects.filter(country=country)})
+
+
+def view_ngo_petition(request, pk):
+    petition = get_object_or_404(NgoPetition)
+    return render(request, 'app/petition.html', {'petition': petition})
+
+
+def vote_ngo_petition(request, pk):
+    if request.method == 'GET':
+        return redirect('app:view_ngo_petition', pk=pk)
+    email = request.POST.get('email')
+    petition = NgoPetition.objects.get(id=pk)
+    if NgoPetitionVote.objects.filter(petition=petition, voter=email).exists():
+        return redirect('app:view_ngo_petition', pk=pk)
+    petition = NgoPetition.objects.get(id=pk)
+    vote = NgoPetitionVote.objects.create(petition=petition, voter=email)
+    vote.save()
+    send_mail(
+        'Verify your vote',
+        'http://127.0.0.1:8000/petition/ngo/vote/{0}/success/'.format(vote.id),
+        'from@example.com',
+        ['test@example.com'],
+        fail_silently=False,
+    )
+    return redirect('app:vote_message')
+
+
+def vote_message(request):
+    return render(request, 'app/vote_message.html', {})
+
+
+def confirm_email(request, pk):
+    vote = NgoPetitionVote.objects.get(id=pk)
+    vote.email_confirmed = True
+    vote.save()
+    return HttpResponse('Your vote has been confirmed.')
 
 
 def search_ngo(request):
