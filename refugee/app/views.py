@@ -43,6 +43,7 @@ def register(request):
         FirstName = request.POST.get('fname', '')
         LastName = request.POST.get('lname', '')
         email = request.POST.get('email', '')
+        name = FirstName + " " + LastName
         user = User.objects.create_user(username=username, email=email, first_name=FirstName, last_name=LastName)
         user.set_password(password)
         user.save()
@@ -54,7 +55,7 @@ def register(request):
         passport = request.FILES.get('passport', None)
         photo = request.FILES.get('photo', None)
         refugee = Refugee.objects.create(refugee=user, country=country, bio=bio, age=age, mobileNo=mobileNo,
-                                         gender=gender, passport=passport, photo=photo)
+                                         gender=gender, passport=passport, photo=photo, name=name)
         refugee.save()
         return HttpResponse("avh")
     else:
@@ -113,5 +114,25 @@ def ngo_logout(request):
 
 @login_required(login_url='/login/')
 def profile(request, idx):
-   client = get_object_or_404(Refugee, pk=idx)
-   return render(request, 'app/refugee_profile.html', {'client': client})
+    client = get_object_or_404(Refugee, pk=idx)
+    return render(request, 'app/refugee_profile.html', {'client': client})
+
+
+def search_ngo(request):
+    if request.GET.get('search_ngo'):
+        param = request.GET.get('search_ngo')
+        ngo = NGO.objects.filter(name__icontains=param)
+        if not ngo.exists():
+            return render(request, 'app/search_ngo.html', {'error': 'NO MATCHING QUESTIONS FOUND'})
+        return render(request, 'app/search_ngo.html', {'ngo': ngo})
+    return render(request, 'app/search_ngo.html', {})
+
+
+def search_refugee(request):
+    if request.GET.get('search_refugee'):
+        param = request.GET.get('search_refugee')
+        r = Refugee.objects.filter(name__icontains=param)
+        if not r.exists():
+            return render(request, 'app/search_refugee.html', {'error': 'NO MATCHING QUESTIONS FOUND'})
+        return render(request, 'app/search_refugee.html', {'r': r})
+    return render(request, 'app/search_refugee.html', {})

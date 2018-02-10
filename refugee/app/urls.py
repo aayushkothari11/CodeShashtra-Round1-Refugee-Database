@@ -11,4 +11,6 @@ urlpatterns = [
     url(r'^ngo_profile/(?P<pk>[0-9]+)/$', views.ngo_profile, name='ngo_profile'),
     url(r'^ngo_logout/$', views.ngo_logout, name='ngo_logout'),
     url(r'^refugee_profile/(?P<idx>[0-9]+)/$', views.profile, name='profile'),
+    url(r'^search/ngo/$', views.search_ngo, name='search_ngo'),
+    url(r'^search/refugee/$', views.search_refugee, name='search_refugee'),
 ]
