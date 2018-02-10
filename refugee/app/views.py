@@ -66,13 +66,14 @@ def register(request):
 
 def ngo_register(request):
     if request.user.is_authenticated:
-        return render(request, 'app/test.html', {})
+        return redirect('app:ngo_profile', pk=request.user.id)
     if request.method == 'GET':
         return render(request, "app/ngo_register.html", {})
+    print(1)
     name = request.POST.get("name")
     password = request.POST.get("password")
     email = request.POST.get("email")
-
+    print(2)
     if User.objects.filter(username=name).exists():
         error = 'The NGO is already registered.'
         return render(request, 'app/ngo_register.html', {'error': error})
@@ -81,9 +82,15 @@ def ngo_register(request):
     user.save()
     country = request.POST.get("country", "")
     ngo_id = request.POST.get("ngo_id", "")
-    ngo = NGO.objects.create(user=user, name=name, country=country, ngo_id=ngo_id)
+    isInternational = request.POST.get("inter", "")
+    if(isInternational == "Yes"):
+        isInternational = True
+    else:
+        isInternational = False
+    ngo = NGO.objects.create(user=user, name=name, country=country, ngo_id=ngo_id, international=isInternational)
     ngo.save()
     auth_login(request, user)
+    print(3)
     return redirect('app:ngo_profile', pk=user.id)
 
 
