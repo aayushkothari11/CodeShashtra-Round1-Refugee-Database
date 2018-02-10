@@ -45,3 +45,17 @@ class Refugee(models.Model):
 
     def __str__(self):
         return str(self.refugee.username)
+
+
+class NgoPetition(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField(blank=True, null=True)
+    ngo = models.ForeignKey(NGO, on_delete=models.CASCADE, related_name='ngo_petitions')
+
+    def __str__(self):
+        return self.title
+
+
+class NgoPetitionVote(models.Model):
+    petition = models.ForeignKey(NgoPetition, on_delete=models.CASCADE, related_name='ngo_petition_votes')
+    voter = models.EmailField()
