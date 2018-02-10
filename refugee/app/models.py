@@ -28,8 +28,8 @@ def passport(instance, filename):
 
 class Refugee(models.Model):
     refugee = models.OneToOneField(User, on_delete=models.CASCADE, related_name="refugee")
-    ngo = models.ForeignKey(NGO, blank=True, null=True, on_delete=models.SET_NULL, related_name="refugees")
     name = models.CharField(max_length=100)
+    ngo = models.ForeignKey(NGO, blank=True, null=True, on_delete=models.SET_NULL, related_name="refugees")
     country = models.CharField(max_length=50)
     photo = models.FileField(blank=True, upload_to=path)
     bio = models.CharField(max_length=200, blank=True)
