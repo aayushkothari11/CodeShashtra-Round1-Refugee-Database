@@ -4,7 +4,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.urls import reverse
 from django.contrib.auth.models import User
-from .models import Refugee, NGO, NgoPetition, NgoPetitionVote, Help, Notification, Event
+from .models import Event
 from .models import Refugee, NGO, NgoPetition, NgoPetitionVote, Help, Notification, RefugeePetition, RefugeePetitionVote
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
