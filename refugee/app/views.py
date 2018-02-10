@@ -4,7 +4,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.urls import reverse
 from django.contrib.auth.models import User
-from .models import Refugee, NGO, NgoPetition, NgoPetitionVote, Help, Notification
+from .models import Refugee, NGO, NgoPetition, NgoPetitionVote, Help, Notification, Event
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.core.mail import send_mail
@@ -217,3 +217,22 @@ def add_notif(request):
 def allnotifs(request):
     notif = Notification.objects.all()
     return render(request, 'app/allnotifs.html', {'notif': notif})
+
+
+@login_required(login_url="app:ngo_login")
+def add_event(request):
+    if request.method == 'POST':
+        reason = request.POST.get('reason', '')
+        date = request.POST.get('date', '')
+        location = request.POST.get('location', '')
+        r = NGO.objects.get(user=request.user)
+        n = Event(reason=reason, startedBy=r, date=date, location=location)
+        n.save()
+        return HttpResponse("avh")
+    else:
+        return render(request, 'app/addevent.html', {})
+
+
+def all_event(request):
+    event = Event.objects.all()
+    return render(request, 'app/allevents.html', {'event': event})

@@ -20,4 +20,6 @@ urlpatterns = [
     url(r'^search/refugee/$', views.search_refugee, name='search_refugee'),
     url(r'^add/notification/$', views.add_notif, name='add_notif'),
     url(r'^all/notification/$', views.allnotifs, name='allnotifs'),
+    url(r'^add/event/$', views.add_event, name='add_event'),
+    url(r'^all/event/$', views.all_event, name='all_event'),
 ]

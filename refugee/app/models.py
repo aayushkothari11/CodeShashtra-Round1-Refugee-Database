@@ -90,3 +90,10 @@ class Help(models.Model):
 
     def __str__(self):
         return str(self.help.helpof)
+
+
+class Event(models.Model):
+    startedBy = models.ForeignKey(NGO, on_delete=models.SET_NULL, null=True, related_name="eventngo")
+    reason = models.CharField(max_length=1000)
+    date = models.DateTimeField()
+    location = models.CharField(max_length=1000)
