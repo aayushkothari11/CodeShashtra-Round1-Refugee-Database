@@ -5,6 +5,7 @@ from django.contrib.auth import logout as auth_logout
 from django.urls import reverse
 from django.contrib.auth.models import User
 from .models import Refugee, NGO, NgoPetition, NgoPetitionVote, Help, Notification, Event
+from .models import Refugee, NGO, NgoPetition, NgoPetitionVote, Help, Notification, RefugeePetition, RefugeePetitionVote
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.core.mail import send_mail
@@ -145,7 +146,7 @@ def askforhelp(request):
 
 
 def view_ngo_petition(request, pk):
-    petition = get_object_or_404(NgoPetition)
+    petition = get_object_or_404(NgoPetition, id=pk)
     return render(request, 'app/petition.html', {'petition': petition})
 
 
@@ -178,6 +179,17 @@ def confirm_email(request, pk):
     vote.email_confirmed = True
     vote.save()
     return HttpResponse('Your vote has been confirmed.')
+
+
+@login_required(login_url='app:ngo_login')
+def create_ngo_petition(request):
+    if request.method == 'GET':
+        return render(request, 'app/create_ngo_petition.html', {})
+    title = request.POST.get('title')
+    description = request.POST.get('description')
+    petition = NgoPetition.objects.create(title=title, description=description, ngo=request.user.ngo)
+    petition.save()
+    return redirect('app:view_ngo_petition', pk=petition.id)
 
 
 def search_ngo(request):
@@ -236,3 +248,46 @@ def add_event(request):
 def all_event(request):
     event = Event.objects.all()
     return render(request, 'app/allevents.html', {'event': event})
+
+
+def view_refugee_petition(request, pk):
+    petition = get_object_or_404(RefugeePetition, id=pk)
+    return render(request, 'app/refugee_petition.html', {'petition': petition})
+
+
+def vote_refugee_petition(request, pk):
+    if request.method == 'GET':
+        return redirect('app:view_refugee_petition', pk=pk)
+    email = request.POST.get('email')
+    petition = RefugeePetition.objects.get(id=pk)
+    if RefugeePetitionVote.objects.filter(petition=petition, voter=email).exists():
+        return redirect('app:view_refugee_petition', pk=pk)
+    petition = RefugeePetition.objects.get(id=pk)
+    vote = RefugeePetitionVote.objects.create(petition=petition, voter=email)
+    vote.save()
+    send_mail(
+        'Verify your vote',
+        'http://127.0.0.1:8000/petition/refugee/vote/{0}/success/'.format(vote.id),
+        'from@example.com',
+        ['test@example.com'],
+        fail_silently=False,
+    )
+    return redirect('app:vote_message')
+
+
+def refugee_confirm_email(request, pk):
+    vote = RefugeePetitionVote.objects.get(id=pk)
+    vote.email_confirmed = True
+    vote.save()
+    return HttpResponse('Your vote has been confirmed.')
+
+
+@login_required(login_url='app:login')
+def create_refugee_petition(request):
+    if request.method == 'GET':
+        return render(request, 'app/create_refugee_petition.html', {})
+    title = request.POST.get('title')
+    description = request.POST.get('description')
+    petition = RefugeePetition.objects.create(title=title, description=description, refugee=request.user.refugee)
+    petition.save()
+    return redirect('app:view_refugee_petition', pk=petition.id)

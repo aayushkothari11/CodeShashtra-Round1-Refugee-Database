@@ -97,3 +97,21 @@ class Event(models.Model):
     reason = models.CharField(max_length=1000)
     date = models.DateTimeField()
     location = models.CharField(max_length=1000)
+
+
+class RefugeePetition(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField(blank=True, null=True)
+    refugee = models.ForeignKey(Refugee, on_delete=models.CASCADE, related_name='refugee_petitions')
+
+    def __str__(self):
+        return self.title
+
+
+class RefugeePetitionVote(models.Model):
+    petition = models.ForeignKey(RefugeePetition, on_delete=models.CASCADE, related_name='refugee_petition_votes')
+    voter = models.EmailField()
+    email_confirmed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.petition.title + ' -- ' + self.voter
