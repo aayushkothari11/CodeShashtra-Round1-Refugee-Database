@@ -13,7 +13,8 @@ from django.core.mail import send_mail
 
 def login(request):
     if request.user.is_authenticated:
-        return render(request, 'app/profile.html', {})
+        client = request.user.refugee
+        return redirect('app:profile', idx = client.id)
     else:
         if request.method == 'POST':
             username = request.POST.get('username', '')
@@ -22,7 +23,8 @@ def login(request):
             if user:
                 if user.is_active:
                     auth_login(request, user)
-                    return render(request, 'app/profile.html', {})
+                    client = request.user.refugee
+                    return redirect('app:profile', idx = client.id)
                 else:
                     error = 'Your Rango account is disabled.'
                     return render(request, 'app/login.html', {'error': error})
@@ -59,7 +61,7 @@ def register(request):
         refugee = Refugee.objects.create(refugee=user, country=country, bio=bio, age=age, mobileNo=mobileNo,
                                          gender=gender, passport=passport, photo=photo, name=name)
         refugee.save()
-        return HttpResponse("avh")
+        return redirect('app:profile', idx=refugee.id)
     else:
         return render(request, 'app/registration.html', {})
 
