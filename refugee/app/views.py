@@ -91,7 +91,7 @@ def ngo_register(request):
     ngo.save()
     auth_login(request, user)
     print(3)
-    return redirect('app:ngo_profile', pk=user.id)
+    return redirect('app:ngo_profile', pk=ngo.id)
 
 
 @login_required(login_url="app:ngo_login")
@@ -211,11 +211,15 @@ def search_ngo(request):
 
 @login_required(login_url="app:ngo_login")
 def search_refugee(request):
+    print(1)
     if request.GET.get('search_refugee'):
         param = request.GET.get('search_refugee')
         r = Refugee.objects.filter(name__icontains=param)
+        print(2)
         if not r.exists():
+            print(3)
             return render(request, 'app/search_refugee.html', {'error': 'NO MATCHING QUESTIONS FOUND'})
+        print(4)
         return render(request, 'app/search_refugee.html', {'r': r})
     return render(request, 'app/search_refugee.html', {})
 

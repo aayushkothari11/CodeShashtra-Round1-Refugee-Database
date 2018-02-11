@@ -123,7 +123,7 @@
 
                 <p><span> &nbsp;{{ ngo.country }}</span></p>
                 <br/>
-                <p>ADDRESS: No. 34-A/44, JP Road, Manish Nagar, Four Bungalows, Andheri West, P.O. Azad Nagar, Mumbai, Maharashtra 400053</p>
+                <p>{{ ngo.address }}</p>
                 <br/>
 
 
@@ -136,68 +136,20 @@
             </div>
             <div class="row">
 
+              {% for x in ngo.refugees.all %}
                 <div class=" col-md-3 col-sm-6">
                         <div class="cause">
                              <img src="assets/images/causes/cause-hunger.jpg" alt="" class="cause-img">
-                             <h4 class="cause-title"><a href="#">ADAM VOGES </a></h4>
+                             <h4 class="cause-title"><a href="#">{{ x.name }}</a></h4>
                              <div class="cause-details">
-                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut at eros rutrum turpis viverra elementum semper quis ex. Donec lorem nulla, aliquam quis neque vel, maximus lacinia urna.
+                                 {{ x.bio }}
                              </div>
                         </div> <!-- /.cause -->
                     </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="cause">
-                             <img src="assets/images/causes/cause-education.jpg" alt="" class="cause-img">
-                             <h4 class="cause-title"><a href="#">ADAM VOGES </a></h4>
-                             <div class="cause-details">
-                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut at eros rutrum turpis viverra elementum semper quis ex. Donec lorem nulla, aliquam quis neque vel, maximus lacinia urna.
-                             </div>
-                        </div> <!-- /.cause -->
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="cause">
-                             <img src="assets/images/causes/cause-rights.jpg" alt="" class="cause-img">
-                             <h4 class="cause-title"><a href="#">ADAM VOGES </a></h4>
-                             <div class="cause-details">
-                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut at eros rutrum turpis viverra elementum semper quis ex. Donec lorem nulla, aliquam quis neque vel, maximus lacinia urna.
-                             </div>
-                        </div> <!-- /.cause -->
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="cause">
-                             <img src="assets/images/causes/cause-culture.jpg" alt="" class="cause-img">
-                             <h4 class="cause-title"><a href="#">ADAM VOGES </a></h4>
-                             <div class="cause-details">
-                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut at eros rutrum turpis viverra elementum semper quis ex. Donec lorem nulla, aliquam quis neque vel, maximus lacinia urna.
-                             </div>
-                        </div> <!-- /.cause -->
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="cause">
-                             <img src="assets/images/causes/cause-rights.jpg" alt="" class="cause-img">
-                             <h4 class="cause-title"><a href="#">ADAM VOGES </a></h4>
-                             <div class="cause-details">
-                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut at eros rutrum turpis viverra elementum semper quis ex. Donec lorem nulla, aliquam quis neque vel, maximus lacinia urna.
-                             </div>
-                        </div> <!-- /.cause -->
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="cause">
-                             <img src="assets/images/causes/cause-education.jpg" alt="" class="cause-img">
-                             <h4 class="cause-title"><a href="#">ADAM VOGES </a></h4>
-                             <div class="cause-details">
-                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut at eros rutrum turpis viverra elementum semper quis ex. Donec lorem nulla, aliquam quis neque vel, maximus lacinia urna.
-                             </div>
-                        </div> <!-- /.cause -->
-                    </div>
-                    <div class="col-md-3 col-sm-6" >
-                        <div class="cause">
+              {% endfor %}
 
-                             <h4 class="cause-title" style="height: 212PX;margin-top: 160PX;"><a href="#" style="margin-top: 150PX;">VIEW ALL</a></h4>
 
-                        </div> <!-- /.cause -->
 
-                    </div>
                 </div>
 
                 <!--SECOND LIST-->

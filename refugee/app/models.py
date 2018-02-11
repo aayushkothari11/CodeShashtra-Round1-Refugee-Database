@@ -9,6 +9,7 @@ class NGO(models.Model):
     country = models.CharField(max_length=100, blank=True, null=True)
     international = models.BooleanField(default=False)
     ngo_id = models.CharField(max_length=50, blank=True, null=True)
+    address = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -24,6 +25,10 @@ def path(instance, filename):
 # Example : /MEDIA_ROOT/photos/1234567890/abc.jpg
 def passport(instance, filename):
     return 'passport/{0}'.format(filename)
+
+
+def petition(instance, filename):
+    return 'petition/{0}'.format(filename)
 
 
 class Refugee(models.Model):
@@ -60,6 +65,7 @@ class NgoPetition(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
     ngo = models.ForeignKey(NGO, on_delete=models.CASCADE, related_name='ngo_petitions')
+    photo = models.FileField(blank=True, null=True, upload_to=petition)
 
     def __str__(self):
         return self.title
