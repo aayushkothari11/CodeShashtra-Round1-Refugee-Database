@@ -100,13 +100,13 @@
                     {% endif %}
 
                     {% if request.user.ngo %}
-                      <li><a href="{% url 'app:profile' request.user.ngo.id %}">DASHBOARD</a></li>
-                      <li><a href="{% url 'app:logout' %}">SIGN OUT</a></li>
+                      <li><a href="{% url 'app:ngo_profile' request.user.ngo.id %}">DASHBOARD</a></li>
+                      <li><a href="{% url 'app:ngo_logout' %}">SIGN OUT</a></li>
                     {% endif %}
 
                     {% if not request.user.is_authenticated %}
                       <li><a href="{% url 'app:login' %}">LOGIN</a></li>
-                      <li><a href="{% url 'app:logout' %}">SIGN UP AS NGO</a></li>
+                      <li><a href="{% url 'app:ngo_register' %}">SIGN UP AS NGO</a></li>
                     {% endif %}
 
                   </ul>
@@ -128,30 +128,43 @@
 
     <div class="main-container fadeIn animated">
         <div class="container">
-            <div class="row">
-                <div class="col-md-offset-4 col-md-5">
+          <div class="row">
+              <h2 class="title-style-1">{{ ngo.name }} <span class="title-under"></span></h2>
+              <div class="btn-holder text-center">
+                  <a href="{% url 'app:allnotifs' %}" class="button button2 pull-right" style="margin-top: -90px;text-decoration:none;">NOTIFICATIONS</a>
+              </div>
+              <div class="col-md-offset-4 col-md-5 card" style="height: 250px;">
+              <br/><br/>
+                <p style="font-size: 16px;"><b><span> &nbsp;{{ ngo.country }}</span></b></p>
+                <br/><br/>
+              <!-- <br/>
+              <p>ADDRESS: No. 34-A/44, JP Road, Manish Nagar, Four Bungalows, Andheri West, P.O. Azad Nagar, Mumbai, Maharashtra 400053</p> -->
+              <br><br/>
+                <p style="font-size: 14px;"><b>ADDRESS: {{ ngo.address }}</b> </p>
+              <br/><br/>
+              <div class="btn-holder text-center">
+                  <a href="{% url 'app:add_event' %}" class="btn btn-primary">ADD EVENT</a>
+                  <a href="{% url 'app:add_notif' %}" class="btn btn-primary">SEND MESSAGE</a>
+              </div>
 
-                <h2 class="title-style-1">{{ ngo.name }}<span class="title-under"></span></h2>
-
-                <p><span> &nbsp;{{ ngo.country }}</span></p>
-                <br/>
-                <p>{{ ngo.address }}</p>
-                <br/>
 
 
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-5" style="padding-bottom: 25px;">
-                    <h2 class="">REFUGEES REGISTERED</h2>
-                </div>
-            </div>
-            <div class="row">
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="col-md-5" style="padding-bottom: 25px;">
+                  <h2 class="">REFUGEES REGISTERED</h2>
+              </div>
+              <div class="col-md-offset-4 col-md-3">
+                  <a href="{% url 'app:register' %}" class="button button2 pull-right" style="margin-top: 20px;text-decoration: none;">ADD REFUGEE</a>
+              </div>
+          </div>
 
               {% for x in ngo.refugees.all %}
                 <div class=" col-md-3 col-sm-6">
                         <div class="cause">
-                             <img src="assets/images/causes/cause-hunger.jpg" alt="" class="cause-img">
+                             <img src="{% static 'app/images/causes/cause-hunger.jpg' %}" alt="" class="cause-img">
                              <h4 class="cause-title"><a href="#">{{ x.name }}</a></h4>
                              <div class="cause-details">
                                  {{ x.bio }}

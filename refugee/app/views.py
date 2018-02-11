@@ -12,7 +12,8 @@ from django.core.mail import send_mail
 
 
 def index(request):
-    return render(request, 'app/index.html', {})
+    event = Event.objects.all()
+    return render(request, 'app/index.html', {'event': event})
 
 
 def login(request):
@@ -136,7 +137,7 @@ def profile(request, idx):
 def askforhelp(request):
     if request.method == 'POST':
         name = request.user.get_username()
-        idd = request.user.id
+        idd = request.user.refugee.id
         ngo_name = request.POST.get("askto", "")
         print(ngo_name)
         helpof = request.POST.get("helpof", "")
@@ -244,7 +245,7 @@ def add_notif(request):
         r = NGO.objects.get(user=request.user)
         n = Notification(message=message, askedBy=r)
         n.save()
-        return HttpResponse("avh")
+        return redirect('app:allnotifs')
     else:
         return render(request, 'app/addnotif.html', {})
 
@@ -258,13 +259,14 @@ def allnotifs(request):
 @login_required(login_url="app:ngo_login")
 def add_event(request):
     if request.method == 'POST':
+        title = request.POST.get('title', '')
         reason = request.POST.get('reason', '')
         date = request.POST.get('date', '')
         location = request.POST.get('location', '')
         r = NGO.objects.get(user=request.user)
-        n = Event(reason=reason, startedBy=r, date=date, location=location)
+        n = Event(title=title, reason=reason, startedBy=r, date=date, location=location)
         n.save()
-        return HttpResponse("avh")
+        return redirect('app:index')
     else:
         return render(request, 'app/addevent.html', {})
 

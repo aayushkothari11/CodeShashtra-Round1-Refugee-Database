@@ -1,9 +1,9 @@
 /*------------------------------------------------------------------------------------------------------------------------
- 
+
  @package: Sadaka
  @author: Ouarmedia/Farouk BLALOU
  @version: 1.0
- 
+
  --------------------------------------------------------------------------------------------------------------------- */
 
 /* =============================================================================
@@ -119,6 +119,40 @@ a {
   text-shadow: 0 1px 0 rgba(0, 0 ,0, .3);
   width: 100px;
 }
+
+.card {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    margin: 4px 2px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+
+.button2 {
+    background-color: white;
+    color: black;
+    border: 2px solid #2196f3;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+
 .hover:hover{
   cursor: pointer;
 }
@@ -147,7 +181,7 @@ a {
 /* =============================================================================
   Layout
 ========================================================================== */
-/* Header 
+/* Header
 ================================= */
 .navbar-static-top {
   margin: 0;
@@ -236,7 +270,7 @@ a {
   background: #fff;
 }
 
-/* Home Slider 
+/* Home Slider
 ================================= */
 .carousel-home img {
   width: 100%;
@@ -283,7 +317,7 @@ a {
   margin: 30px 0;
 }
 
-/* home/ about-us 
+/* home/ about-us
 ================================= */
 .about-us {
   margin: 30px 0;
@@ -313,7 +347,7 @@ a {
   min-height: 80px;
 }
 
-/* home/reasons 
+/* home/reasons
 ================================= */
 .home-reasons {
   margin: 25px 0;
@@ -418,7 +452,7 @@ a {
   border-color: #144d7b;
 }
 
-/* Team 
+/* Team
 ================================= */
 .team-member {
   background: #00bcd4;
@@ -437,7 +471,7 @@ a {
   padding: 0 15px 5px;
 }
 
-/* footer 
+/* footer
 ================================= */
 .footer-top {
   background: #2196f3;
@@ -530,7 +564,7 @@ a {
   color: #fff;
 }
 
-/* Pages 
+/* Pages
 ================================= */
 .page-heading {
   background: url('../images/heading-bg.jpg?1428795369') no-repeat center;
@@ -552,7 +586,7 @@ a {
   margin-bottom: 50px;
 }
 
-/* Pages/Gallery 
+/* Pages/Gallery
 ================================= */
 .gallery-item {
   padding: 0;
@@ -587,7 +621,7 @@ a {
   margin-top: 7px;
 }
 
-/* contact 
+/* contact
 ================================= */
 .contact-map {
   height: 350px;
@@ -598,7 +632,7 @@ form .alert {
   display: none;
 }
 
-/* Causes 
+/* Causes
 ================================= */
 .cause-carousel {
   margin-top: 15px;

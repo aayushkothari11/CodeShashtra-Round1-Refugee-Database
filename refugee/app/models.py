@@ -99,6 +99,7 @@ class Help(models.Model):
 
 
 class Event(models.Model):
+    title = models.CharField(max_length=50, blank=True, null=True)
     startedBy = models.ForeignKey(NGO, on_delete=models.SET_NULL, null=True, related_name="eventngo")
     reason = models.CharField(max_length=1000)
     date = models.DateTimeField()

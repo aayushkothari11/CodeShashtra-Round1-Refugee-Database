@@ -2,37 +2,38 @@
 <!DOCTYPE html>
 <html class="no-js">
     <head>
-        <meta charset="utf-8">
-        <title>Contact | Charity / Non-profit responsive Bootstrap HTML5 template</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta charset="utf-8">
+      <title>Contact | Charity / Non-profit responsive Bootstrap HTML5 template</title>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Fonts -->
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Dosis:400,700' rel='stylesheet' type='text/css'>
+      <!-- Fonts -->
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+      <link href='http://fonts.googleapis.com/css?family=Dosis:400,700' rel='stylesheet' type='text/css'>
 
-        <!-- Bootsrap -->
-        <link rel="stylesheet" href="{% static 'app/css/bootstrap.min.css' %}">
+      <!-- Bootsrap -->
+      <link rel="stylesheet" href="{% static 'app/css/bootstrap.min.css' %}">
 
-        <!-- Font awesome -->
-        <link rel="stylesheet" href="{% static 'app/css/font-awesome.min.css' %}">
+      <!-- Font awesome -->
+      <link rel="stylesheet" href="{% static 'app/css/font-awesome.min.css' %}">
 
-        <!-- Template main Css -->
-        <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+      <!-- Template main Css -->
+      <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
 
-        <!-- Modernizr -->
-        <script src="{% static 'app/js/modernizr-2.6.2.min.js' %}"></script>
+      <link rel="stylesheet" href="{% static 'app/css/owl.carousel.css' %}">
 
+      <!-- Modernizr -->
+      <script src="{% static 'app/js/modernizr-2.6.2.min.js' %}"></script>
 
     </head>
+
     <body>
-    <!-- NAVBAR
-    ================================================== -->
-
-<header class="main-header">
 
 
-        <nav class="navbar navbar-static-top">
+    <header class="main-header">
+
+
+        <nav class="navbar navbar-static-top navbar-fixed-top">
 
             <div class="navbar-top">
 
@@ -42,8 +43,8 @@
                     <div class="col-sm-6 col-xs-12">
 
                         <ul class="list-unstyled list-inline header-contact">
-                            <li> <i class="fa fa-phone"></i> <a href="tel:">+212 658 986 213 </a> </li>
-                             <li> <i class="fa fa-envelope"></i> <a href="mailto:contact@sadaka.org">contact@sadaka.org</a> </li>
+                            <li> <i class="fa fa-phone"></i> <a href="tel:">+91 223 510 005 </a> </li>
+                             <li> <i class="fa fa-envelope"></i> <a href="mailto:contact@sadaka.org">refuhelp@gmail.com</a> </li>
                        </ul> <!-- /.header-contact  -->
 
                     </div>
@@ -52,12 +53,10 @@
 
                         <ul class="list-unstyled list-inline header-social">
 
-                            <li> <a href="#" target="_blank"> <i class="fa fa-facebook"></i> </a> </li>
-                            <li> <a href="#" target="_blank"> <i class="fa fa-twitter"></i>  </a> </li>
-                            <li> <a href="#" target="_blank"> <i class="fa fa-google"></i>  </a> </li>
-                            <li> <a href="#" target="_blank"> <i class="fa fa-youtube"></i>  </a> </li>
-                            <li> <a href="#" target="_blank"> <i class="fa fa fa-pinterest-p"></i>  </a> </li>
-
+                            <li> <a href="#"> <i class="fa fa-facebook"></i> </a> </li>
+                            <li> <a href="#"> <i class="fa fa-twitter"></i>  </a> </li>
+                            <li> <a href="#"> <i class="fa fa-google"></i>  </a> </li>
+                            <li> <a href="#"> <i class="fa fa-youtube"></i>  </a> </li>
                        </ul> <!-- /.header-social  -->
 
                     </div>
@@ -82,7 +81,7 @@
 
                   </button>
 
-                  <a class="navbar-brand" href="index.html"><img src="{% static 'app/images/sadaka-logo.png' %}" alt=""></a>
+                  <a class="navbar-brand" href="index.html" style="padding-top: 22px;">RefuHelp</a>
 
                 </div>
 
@@ -100,13 +99,13 @@
                     {% endif %}
 
                     {% if request.user.ngo %}
-                      <li><a href="{% url 'app:profile' request.user.ngo.id %}">DASHBOARD</a></li>
-                      <li><a href="{% url 'app:logout' %}">SIGN OUT</a></li>
+                      <li><a href="{% url 'app:ngo_profile' request.user.ngo.id %}">DASHBOARD</a></li>
+                      <li><a href="{% url 'app:ngo_logout' %}">SIGN OUT</a></li>
                     {% endif %}
 
                     {% if not request.user.is_authenticated %}
                       <li><a href="{% url 'app:login' %}">LOGIN</a></li>
-                      <li><a href="{% url 'app:logout' %}">SIGN UP AS NGO</a></li>
+                      <li><a href="{% url 'app:ngo_register' %}">SIGN UP AS NGO</a></li>
                     {% endif %}
 
                   </ul>
@@ -127,48 +126,87 @@
 
 
     <div class="main-container fadeIn animated">
-        <div class="container">
+        <div class="container" style="margin-top:100px;">
             <div class="row">
-                <div class="col-md-offset-4 col-md-5">
+              <h2 class="title-style-1">{{ client.name }} <span class="title-under"></span></h2><br/>
+                <div class="col-md-offset-1 col-md-5">
 
-                <h2 class="title-style-1">{{ client.name }}<span class="title-under"></span></h2>
-                {% if client.photo %}
-                  <img src="{{client.photo.url}}" alt="" class="cause-img" style="height: 250px; width: 310px;margin-top: -35px;margin-bottom: 20px;">
 
-                {% else %}
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1024px-No_image_3x4.svg.png" alt="" class="cause-img" style="height: 250px; width: 310px;margin-top: -35px;margin-bottom: 20px;">
-                {% endif %}
-
-                <p>{{client.refugee.username }} &nbsp;&nbsp; <span> &nbsp; {{client.country}} </span></p>
-                <br/>
-                <p>{{client.bio}}</p>
-                <br/>
-                <br/>
+                  <img src="{% static 'app/images/causes/boy-60729_1280.jpg' %}" alt="" class="card" style="height: 350px;
+                width: 450px;margin-top: -35px;margin-bottom: 20px;">
                 </div>
-                <div class="col-md-offset-4 col-md-5 col-sm-6">
+                <div class="col-md-5 card" style="height: 350px;margin-top: -38px;">
+                  <br/><br/><br/><br/>
+                  <p style="font-size: 16px;"><b><span> &nbsp;{{client.country}}</span></b></p>
+                  <br/><br/>
+                  <p style="font-size: 16px;"><b>{{client.age}} &nbsp;&nbsp; <span> &nbsp;{{client.mobileNo}}</span></b></p>
+                  <br/><br>
+                  <b>Registered On:</b><p style="font-size: 16px;"><b>{{client.registered_on}}</b></p>
+                  <br><br/>
+                  <p style="font-size: 14px;"><b>BIO: {{client.bio}}</b> </p>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+              <div style="padding: 30px;"></div>
 
+              <div class="row">
+
+                <div class="col-md-5">
+                  <h3>REGISTERED TO:</h3>
+                </div>
+
+                <div class=" col-md-5 col-sm-6">
                         <div class="cause">
-
-
                             <h4 class="cause-title"><a href="#">HELP AGE INDIA </a></h4>
                             <div class="cause-details " style="height: 30px;margin-bottom: -70px;text-align: center;">
-                                {{client.refugee.email}}hi
+                                Email: helpage@rediff.com
                             </div>
-
                             <div class="btn-holder text-center">
-
-                              <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#donateModal"> ASK FOR HELP</a>
-
+                              <a href="{% url 'app:askforhelp' %}" class="btn btn-primary" data-toggle="modal" data-target="#donateModal"> ASK FOR HELP</a>
                             </div>
+                        </div> <!-- /.cause -->
+                </div>
+              </div>
 
+              <div style="padding: 30px;"></div>
 
+              <div class="row">
+
+                <div class="col-md-5">
+                  <h3>HELP TAKEN FROM:</h3>
+                </div>
+
+                <div class="col-md-offset-1 col-md-6 col-sm-6">
+                        <div class="cause">
+                            <h4 class="cause-title"><a href="#">HELP AGE INDIA </a></h4>
+                            <div class="cause-details " style="height: 30px;margin-bottom: -70px;text-align: center;">
+                                <strong>Neerja</strong> ipsum dolor sit amet, consectetur adipiscing elit. Ut at eros rutrum turpis viverra elementum semper quis ex. Donec lorem nulla, aliquam quis neque vel, maximus lacinia urna.
+                            </div>
 
                         </div> <!-- /.cause -->
+                </div>
+              </div>
+              <div class="row">
 
-                    </div>
+                <div class="col-md-6">
+                  <div class="cause">
+                            <h4 class="cause-title"><a href="#">HELP AGE INDIA </a></h4>
+                            <div class="cause-details " style="height: 30px;margin-bottom: -70px;text-align: center;">
+                                <strong>Neerja</strong> ipsum dolor sit amet, consectetur adipiscing elit. Ut at eros rutrum turpis viverra elementum semper quis ex. Donec lorem nulla, aliquam quis neque vel, maximus lacinia urna.
+                            </div>
+                        </div> <!-- /.cause -->
+                </div>
 
-
-            </div>
+                <div class=" col-md-6 col-sm-6">
+                        <div class="cause">
+                            <h4 class="cause-title"><a href="#">HELP AGE INDIA </a></h4>
+                            <div class="cause-details " style="height: 30px;margin-bottom: -70px;text-align: center;">
+                                <strong>Neerja</strong> ipsum dolor sit amet, consectetur adipiscing elit. Ut at eros rutrum turpis viverra elementum semper quis ex. Donec lorem nulla, aliquam quis neque vel, maximus lacinia urna.
+                            </div>
+                        </div> <!-- /.cause -->
+                </div>
+              </div>
 
         </div>
     </div>
@@ -212,12 +250,23 @@
 
                             <div class="footer-content">
                                 <ul class="tweets list-unstyled">
-                                    <li class="tweet">“I'm fed up to the ears with old men dreaming up wars for young men to die in.” </li>
+                                    <li class="tweet">
+
+                                        20 Surprise Eggs, Kinder Surprise Cars 2 Thomas Spongebob Disney Pixar  http://t.co/fTSazikPd4
+
+                                    </li>
 
                                     <li class="tweet">
-“The more money you spend on guns, the less money you spend on people! More weapons, less happiness; more guns, more misery!”   </li>
 
-                                    <li class="tweet">“They say human is a thinking animal; in times of war, don’t even use the adjective ‘thinking’!”   </li>
+                                        20 Surprise Eggs, Kinder Surprise Cars 2 Thomas Spongebob Disney Pixar  http://t.co/fTSazikPd4
+
+                                    </li>
+
+                                    <li class="tweet">
+
+                                        20 Surprise Eggs, Kinder Surprise Cars 2 Thomas Spongebob Disney Pixar  http://t.co/fTSazikPd4
+
+                                    </li>
 
                                 </ul>
                             </div>

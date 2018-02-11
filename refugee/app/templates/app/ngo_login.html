@@ -102,13 +102,13 @@
                       {% endif %}
 
                       {% if request.user.ngo %}
-                        <li><a href="{% url 'app:profile' request.user.ngo.id %}">DASHBOARD</a></li>
-                        <li><a href="{% url 'app:logout' %}">SIGN OUT</a></li>
+                        <li><a href="{% url 'app:ngo_profile' request.user.ngo.id %}">DASHBOARD</a></li>
+                        <li><a href="{% url 'app:ngo_logout' %}">SIGN OUT</a></li>
                       {% endif %}
 
                       {% if not request.user.is_authenticated %}
                         <li><a href="{% url 'app:login' %}">LOGIN</a></li>
-                        <li><a href="{% url 'app:logout' %}">SIGN UP AS NGO</a></li>
+                        <li><a href="{% url 'app:ngo_register' %}">SIGN UP AS NGO</a></li>
                       {% endif %}
 
                     </ul>
