@@ -93,12 +93,24 @@
 
                   <ul class="nav navbar-nav">
 
-                    <li><a href="index.html">HOME</a></li>
-                    <li><a href="petition.html">PETITIONS</a></li>
-                    <li ><a href="search.html" class="is-active">SEARCH</a>
-                    </li>
-                    <li ><a href="dashboardngo.html">DASHBOARD</a></li>
-                    <li><a  href="register.html">SIGN UP/ LOG IN</a></li>
+                    <li><a class="is-active" href="{% url 'app:index' %}">HOME</a></li>
+                    <li><a href="{% url 'app:index' %}">PETITIONS</a></li>
+                    <li ><a href="{% url 'app:search_ngo' %}">SEARCH</a></li>
+
+                    {% if request.user.refugee %}
+                      <li><a href="{% url 'app:profile' request.user.refugee.id %}">DASHBOARD</a></li>
+                      <li><a href="{% url 'app:logout' %}">SIGN OUT</a></li>
+                    {% endif %}
+
+                    {% if request.user.ngo %}
+                      <li><a href="{% url 'app:profile' request.user.ngo.id %}">DASHBOARD</a></li>
+                      <li><a href="{% url 'app:logout' %}">SIGN OUT</a></li>
+                    {% endif %}
+
+                    {% if not request.user.is_authenticated %}
+                      <li><a href="{% url 'app:login' %}">LOGIN</a></li>
+                      <li><a href="{% url 'app:logout' %}">SIGN UP AS NGO</a></li>
+                    {% endif %}
 
                   </ul>
 
@@ -154,8 +166,8 @@
 
               <h2 class="title-style-1">Ask for help <span class="title-under"></span></h2>
 
-              <a href="search.html" class="btn btn-primary" > SEARCH FOR NGOs</a>
-              <a href="searchrefu.html" class="btn btn-primary" > SEARCH FOR REFUGEES</a>
+              <a href="{% url 'app:search_ngo' %}" class="btn btn-primary" > SEARCH FOR NGOs</a>
+              <a href="{% url 'app:search_refugee' %}" class="btn btn-primary" > SEARCH FOR REFUGEES</a>
 
               <form class="form-wrapper" action="{% url 'app:search_refugee' %}" method="get" >
                     {% csrf_token %}
@@ -239,23 +251,12 @@
 
                             <div class="footer-content">
                                 <ul class="tweets list-unstyled">
-                                    <li class="tweet">
-
-                                        20 Surprise Eggs, Kinder Surprise Cars 2 Thomas Spongebob Disney Pixar  http://t.co/fTSazikPd4
-
-                                    </li>
+                                    <li class="tweet">“I'm fed up to the ears with old men dreaming up wars for young men to die in.” </li>
 
                                     <li class="tweet">
+“The more money you spend on guns, the less money you spend on people! More weapons, less happiness; more guns, more misery!”   </li>
 
-                                        20 Surprise Eggs, Kinder Surprise Cars 2 Thomas Spongebob Disney Pixar  http://t.co/fTSazikPd4
-
-                                    </li>
-
-                                    <li class="tweet">
-
-                                        20 Surprise Eggs, Kinder Surprise Cars 2 Thomas Spongebob Disney Pixar  http://t.co/fTSazikPd4
-
-                                    </li>
+                                    <li class="tweet">“They say human is a thinking animal; in times of war, don’t even use the adjective ‘thinking’!”   </li>
 
                                 </ul>
                             </div>

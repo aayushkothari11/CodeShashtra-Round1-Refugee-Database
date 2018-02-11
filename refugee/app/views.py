@@ -11,6 +11,10 @@ from django.http import HttpResponse
 from django.core.mail import send_mail
 
 
+def index(request):
+    return render(request, 'app/index.html', {})
+
+
 def login(request):
     if request.user.is_authenticated:
         client = request.user.refugee
@@ -152,6 +156,12 @@ def askforhelp(request):
         name = request.user.get_username()
         country = current_refugee.country
         return render(request, 'app/askforhelp.html', {'all_ngo': NGO.objects.filter(country=country)})
+
+
+def all_petition(request):
+    petition1 = NgoPetition.objects.all()
+    petition2 = RefugeePetition.objects.all()
+    return render(request, 'app/list_all_petition.html', {'petition1':petition1, 'petition2':petition2 })
 
 
 def view_ngo_petition(request, pk):
