@@ -115,7 +115,7 @@
 
         <div class="container zoomIn animated">
 
-            <h1 class="page-title">REGISTER REFUGEES<span class="title-under"></span></h1>
+            <h1 class="page-title">SEND MESSAGES NOW<span class="title-under"></span></h1>
             <p class="page-description">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit Necessitatibus.
             </p>
@@ -129,69 +129,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-offset-4 col-md-5">
-                    <h2 class="title-style-2">REGISTRATION FORM <span class="title-under"></span></h2>
+                    <h2 class="title-style-2">MESSAGE FORM <span class="title-under"></span></h2>
                     <form action="php/mail.php" class="contact-form ajax-form">
 
 
 
                         <div class="row">
-
-                            <div class="form-group " style="margin-left: 15px;">
-                                <input type="text" name="name" class="form-control" placeholder="First Name*" required>
-                            </div>
-                            <br/>
-                            <div class="form-group " style="margin-left: 15px;">
-                                <input type="text" name="name" class="form-control" placeholder="Last Name*" required>
-                            </div>
-                            <br/>
-                             <div class="form-group " style="margin-left: 15px;">
-                                <input type="email" name="email" class="form-control" placeholder="Email*" required>
-                            </div>
-                            <br/>
-                            <div class="form-group " style="margin-left: 15px;">
-                                <label>Gender: &nbsp;&nbsp;&nbsp;</label>
-                                <input type="radio" name="gender" value="male" checked> Male&nbsp;
-                                <input type="radio" name="gender" value="female"> Female&nbsp;
-                                <input type="radio" name="gender" value="other"> Other
-                            </div>
-
-                            <div class="row" style="margin-left: 0px;">
-
-                            <div class="form-group col-md-6">
-                                <input type="number" name="mobile" class="form-control" placeholder="Mobile*" required>
-                            </div>
-
-                             <div class="form-group col-md-6">
-                                <input type="number" name="age" class="form-control" placeholder="Age*" required>
-                            </div>
-
-                            </div>
-
-                            <br/>
-                            <div class="form-group " style="margin-left: 15px;">
-                               <label class="form-group" >Profile Picture:</label> <input type="file" name="photo" class="form-control" placeholder="" required>
-                            </div>
-                            <br/>
-
-                            <div class="form-group " style="margin-left: 15px;">
-                                <input type="text" name="country" class="form-control" placeholder="Country*" required>
-                            </div>
-                            <label style="margin-left: 15px;">Upload passport:</label>
-                            <div class="row" style="margin-left: 0px;">
-
-                            <div class="form-group col-md-6">
-                                <input type="file" name="passport" class="form-control" placeholder="" required>
-                            </div>
-
-                             <div class="form-group col-md-6">
-                                <input type="name" name="age" class="form-control" placeholder="Passport ID*" required>
-                            </div>
-
-                            </div>
-
                             <div class="form-group" style="margin-left: 15px;">
-                            <textarea name="message" rows="5" class="form-control" placeholder="Description*" required></textarea>
-                            </div>
+                            <textarea name="message" rows="5" class="form-control" placeholder="Your Message*" required></textarea>
+                            </div>                           
 
                         </div>
 
@@ -209,7 +155,7 @@
 
 
                          <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Register User</button>
+                            <button type="submit" class="btn btn-primary">Send</button>
                         </div>
 
 
@@ -319,10 +265,10 @@
 
         <!-- jQuery -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="assets/js/jquery-1.11.1.min.js"><\/script>')</script>
+          <script>window.jQuery || document.write('<script src="{% static 'app/js/jquery-1.11.1.min.js' %}"></script>')</script>
 
         <!-- Bootsrap javascript file -->
-        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="{% static 'app/js/bootstrap.min.js' %}"></script>
 
 
         <!-- Google map  -->
@@ -330,8 +276,8 @@
 
 
         <!-- Template main javascript -->
-        <script src="assets/js/main.js"></script>
-
+        <script src={% static 'app/js/main.js' %}></script>
+        
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
             (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
@@ -343,4 +289,3 @@
         </script>
     </body>
 </html>
-s
