@@ -14,7 +14,7 @@ from django.core.mail import send_mail
 def login(request):
     if request.user.is_authenticated:
         client = request.user.refugee
-        return redirect('app:profile', idx = client.id)
+        return redirect('app:profile', idx=client.id)
     else:
         if request.method == 'POST':
             username = request.POST.get('username', '')
@@ -24,7 +24,7 @@ def login(request):
                 if user.is_active:
                     auth_login(request, user)
                     client = request.user.refugee
-                    return redirect('app:profile', idx = client.id)
+                    return redirect('app:profile', idx=client.id)
                 else:
                     error = 'Your Rango account is disabled.'
                     return render(request, 'app/login.html', {'error': error})
@@ -196,7 +196,8 @@ def create_ngo_petition(request):
         return render(request, 'app/create_ngo_petition.html', {})
     title = request.POST.get('title')
     description = request.POST.get('description')
-    petition = NgoPetition.objects.create(title=title, description=description, ngo=request.user.ngo)
+    photo = request.FILES.get('photo', None)
+    petition = NgoPetition.objects.create(title=title, description=description, ngo=request.user.ngo, photo=photo)
     petition.save()
     return redirect('app:view_ngo_petition', pk=petition.id)
 
