@@ -25,6 +25,8 @@ urlpatterns = [
     url(r'^all/notification/$', views.allnotifs, name='allnotifs'),
     url(r'^add/event/$', views.add_event, name='add_event'),
     url(r'^all/event/$', views.all_event, name='all_event'),
+    url(r'^petition/refugee/create/$', views.create_refugee_petition, name='create_refugee_petition'),
     url(r'^petition/refugee/(?P<pk>[0-9]+)/$', views.view_refugee_petition, name='view_refugee_petition'),
+    url(r'^petition/refugee/(?P<pk>[0-9]+)/vote/$', views.vote_refugee_petition, name='vote_refugee_petition'),
     url(r'^petition/refugee/vote/(?P<pk>[0-9]+)/success/$', views.refugee_confirm_email, name='refugee_confirm'),
 ]

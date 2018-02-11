@@ -1,4 +1,3 @@
-{% load static %}
 <!DOCTYPE html>
 <html class="no-js">
     <head>
@@ -12,16 +11,16 @@
         <link href='http://fonts.googleapis.com/css?family=Dosis:400,700' rel='stylesheet' type='text/css'>
 
         <!-- Bootsrap -->
-        <link rel="stylesheet" href="{% static 'app/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 
         <!-- Font awesome -->
-        <link rel="stylesheet" href="{% static 'app/css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="assets/css/font-awesome.min.css">
 
         <!-- Template main Css -->
-        <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
-
+        <link rel="stylesheet" href="assets/css/style.css">
+        
         <!-- Modernizr -->
-        <script src="{% static 'app/js/modernizr-2.6.2.min.js' %}"></script>
+        <script src="assets/js/modernizr-2.6.2.min.js"></script>
 
 
     </head>
@@ -30,8 +29,8 @@
     ================================================== -->
 
 <header class="main-header">
-
-
+        
+    
         <nav class="navbar navbar-static-top">
 
             <div class="navbar-top">
@@ -45,7 +44,7 @@
                             <li> <i class="fa fa-phone"></i> <a href="tel:">+212 658 986 213 </a> </li>
                              <li> <i class="fa fa-envelope"></i> <a href="mailto:contact@sadaka.org">contact@sadaka.org</a> </li>
                        </ul> <!-- /.header-contact  -->
-
+                      
                     </div>
 
                     <div class="col-sm-6 col-xs-12 text-right">
@@ -59,7 +58,7 @@
                             <li> <a href="#" target="_blank"> <i class="fa fa fa-pinterest-p"></i>  </a> </li>
 
                        </ul> <!-- /.header-social  -->
-
+                      
                     </div>
 
 
@@ -69,7 +68,7 @@
             </div>
 
             <div class="navbar-main">
-
+              
               <div class="container">
 
                 <div class="navbar-header">
@@ -81,9 +80,9 @@
                     <span class="icon-bar"></span>
 
                   </button>
-
-                  <a class="navbar-brand" href="index.html"><img src="{% static 'app/images/sadaka-logo.png' %}" alt=""></a>
-
+                  
+                  <a class="navbar-brand" href="index.html"><img src="assets/images/sadaka-logo.png" alt=""></a>
+                  
                 </div>
 
                 <div id="navbar" class="navbar-collapse collapse pull-right">
@@ -102,55 +101,91 @@
                 </div> <!-- /#navbar -->
 
               </div> <!-- /.container -->
-
+              
             </div> <!-- /.navbar-main -->
 
 
-        </nav>
+        </nav> 
 
     </header> <!-- /. main-header -->
 
 
 
+    <div class="page-heading text-center">
 
+        <div class="container zoomIn animated">
+            
+            <h1 class="page-title">LOGIN NOW<span class="title-under"></span></h1>
+            <p class="page-description">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit Necessitatibus.
+            </p>
+            
+        </div>
 
+    </div>
+
+    
     <div class="main-container fadeIn animated">
         <div class="container">
             <div class="row">
-                <h1 class="title-style-2" style="text-align: center;">{{ petition.title }}</h1>
-                <span style="font-size: 18px;"><i class="fa fa-users" aria-hidden="true"></i>{{ petition.ngo_petition_votes.count }}</span><br/><br/>
+                <div class="col-md-offset-4 col-md-5">
+                    <h2 class="title-style-2">START A PETITION <span class="title-under"></span></h2>
+                    <form action="php/mail.php" class="contact-form ajax-form">
+                        
+                        
+                        
+                        <div class="row">
 
-                <img src="{% static 'app/images/causes/tampoon.jpg' %}" alt="">
-               <div style="text-align: center;font-size: 16px;padding-left: 150px;padding-right: 150px;padding-top: 30px;"> <p>
+                            <div class="form-group " style="margin-left: 15px;">
+                                <input type="text" name="username" class="form-control" placeholder="Title*" required>
+                            </div>
+                            <br/>
 
-                  <p>
+                             <div class="form-group " style="margin-left: 15px;">
+                               <label>Upload photo:</label> <input type="file" name="password" class="form-control" placeholder="" required>
+                            </div><br/>
+                            <div class="form-group" style="margin-left: 15px;">
+                            <textarea name="message" rows="5" class="form-control" placeholder="Description*" required></textarea>
+                            </div>
+                        </div>
 
-{{ petition.description }} </p>
+                        <div class="form-group alerts">
+                        
+                            <div class="alert alert-success" role="alert">
+                              
+                            </div>
 
-                <form action="{% url 'app:vote_ngo_petition' petition.id %}" class="contact-form" method="post">
-                  {% csrf_token %}
-                    <div class="row">
-                        <div class="form-group col-md-6" style="margin-top: 30px;">
-                         <input type="email" name="email" class="form-control" placeholder="Email*" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="margin-top: 30px; ">Support</button>
-                    </div>
+                            <div class="alert alert-danger" role="alert">
+                              
+                            </div>
+                            
+                        </div>  
 
+                        
+                         <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Start</button>
+                        </div>
+                        
+                           
+                       
 
-            </form>
-            </div><br/>
+                        <div class="clearfix"></div>
+
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 
 
     <footer class="main-footer">
 
-
+        
 
 
         <div class="footer-main">
             <div class="container">
-
+                
                 <div class="row">
                     <div class="col-md-5">
 
@@ -161,14 +196,14 @@
                             <div class="footer-content">
                                 <p>
                                     <strong>Sadaka</strong> ipsum dolor sit amet, consectetur adipiscing elit. Ut at eros rutrum turpis viverra elementum semper quis ex. Donec lorem nulla, aliquam quis neque vel, maximus lacinia urna.
-                                </p>
+                                </p> 
 
                                 <p>
                                     ILorem ipsum dolor sit amet, consectetur adipiscing elit. Ut at eros rutrum turpis viverra elementum semper quis ex. Donec lorem nulla, aliquam quis neque vel, maximus lacinia urna.
                                 </p>
 
                             </div>
-
+                            
                         </div>
 
                     </div>
@@ -181,45 +216,45 @@
 
                             <div class="footer-content">
                                 <ul class="tweets list-unstyled">
-                                    <li class="tweet">
+                                    <li class="tweet"> 
 
-                                        20 Surprise Eggs, Kinder Surprise Cars 2 Thomas Spongebob Disney Pixar  http://t.co/fTSazikPd4
-
-                                    </li>
-
-                                    <li class="tweet">
-
-                                        20 Surprise Eggs, Kinder Surprise Cars 2 Thomas Spongebob Disney Pixar  http://t.co/fTSazikPd4
+                                        20 Surprise Eggs, Kinder Surprise Cars 2 Thomas Spongebob Disney Pixar  http://t.co/fTSazikPd4 
 
                                     </li>
 
-                                    <li class="tweet">
+                                    <li class="tweet"> 
 
-                                        20 Surprise Eggs, Kinder Surprise Cars 2 Thomas Spongebob Disney Pixar  http://t.co/fTSazikPd4
+                                        20 Surprise Eggs, Kinder Surprise Cars 2 Thomas Spongebob Disney Pixar  http://t.co/fTSazikPd4 
+
+                                    </li>
+
+                                    <li class="tweet"> 
+
+                                        20 Surprise Eggs, Kinder Surprise Cars 2 Thomas Spongebob Disney Pixar  http://t.co/fTSazikPd4 
 
                                     </li>
 
                                 </ul>
                             </div>
-
+                            
                         </div>
 
                     </div>
 
 
 <!--
-
+                        
 -->
                     <div class="clearfix"></div>
 
 
 
                 </div>
-
-
+                
+                
             </div>
 
-
+            
         </div>
 
         <div class="footer-bottom">
@@ -228,20 +263,20 @@
                 RefuHelp @ copyright 2018 &nbsp;  &nbsp;All rights Reserved</a>
             </div>
         </div>
-
+        
     </footer>
 
 
 
 
-
-
+       
+        
         <!-- jQuery -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="{% static 'assets/js/jquery-1.11.1.min.js' %}"><\/script>')</script>
+        <script>window.jQuery || document.write('<script src="assets/js/jquery-1.11.1.min.js"><\/script>')</script>
 
         <!-- Bootsrap javascript file -->
-        <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
 
 
         <!-- Google map  -->
@@ -249,7 +284,7 @@
 
 
         <!-- Template main javascript -->
-        <script src="{% static 'assets/js/main.js' %}"></script>
+        <script src="assets/js/main.js"></script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
