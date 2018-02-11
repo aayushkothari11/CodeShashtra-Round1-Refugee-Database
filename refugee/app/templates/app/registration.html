@@ -125,7 +125,7 @@
 
                   </button>
 
-                  <a class="navbar-brand" href="index.html"><img src="assets/images/sadaka-logo.png" alt=""></a>
+                  <a class="navbar-brand" href="{% url 'app:index' %}"><img src="assets/images/sadaka-logo.png" alt=""></a>
 
                 </div>
 
@@ -133,12 +133,24 @@
 
                   <ul class="nav navbar-nav">
 
-                    <li><a href="index.html">HOME</a></li>
-                    <li><a href="petition.html">PETITIONS</a></li>
-                    <li class="has-child"><a href="search.html">SEARCH</a>
-                    </li>
-                    <li ><a href="dashboardngo.html">DASHBOARD</a></li>
-                    <li><a   href="register.html">SIGN UP/ LOG IN</a></li>
+                    <li><a class="is-active" href="{% url 'app:index' %}">HOME</a></li>
+                    <li><a href="{% url 'app:index' %}">PETITIONS</a></li>
+                    <li ><a href="{% url 'app:search_ngo' %}">SEARCH</a></li>
+
+                    {% if request.user.refugee %}
+                      <li><a href="{% url 'app:profile' request.user.refugee.id %}">DASHBOARD</a></li>
+                      <li><a href="{% url 'app:logout' %}">SIGN OUT</a></li>
+                    {% endif %}
+
+                    {% if request.user.ngo %}
+                      <li><a href="{% url 'app:profile' request.user.ngo.id %}">DASHBOARD</a></li>
+                      <li><a href="{% url 'app:logout' %}">SIGN OUT</a></li>
+                    {% endif %}
+
+                    {% if not request.user.is_authenticated %}
+                      <li><a href="{% url 'app:login' %}">LOGIN</a></li>
+                      <li><a href="{% url 'app:logout' %}">SIGN UP AS NGO</a></li>
+                    {% endif %}
 
                   </ul>
 
